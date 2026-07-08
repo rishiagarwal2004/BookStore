@@ -6,6 +6,8 @@ import contactRoute from "./route/contact.route.js";
 
 import bookRoute from "./route/book.route.js";
 import userRoute from "./route/user.route.js";
+import cartRoute from "./route/cart.route.js";
+import enrollmentRoute from "./route/enrollment.route.js";
 
 const app = express();
 
@@ -20,10 +22,7 @@ const URI = process.env.MongoDBURI;
 
 // connect to mongoDB
 try {
-    mongoose.connect(URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
+    mongoose.connect(URI);
     console.log("Connected to mongoDB");
 } catch (error) {
     console.log("Error: ", error);
@@ -32,6 +31,8 @@ try {
 // defining routes
 app.use("/book", bookRoute);
 app.use("/user", userRoute);
+app.use("/cart", cartRoute);
+app.use("/enrollment", enrollmentRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);

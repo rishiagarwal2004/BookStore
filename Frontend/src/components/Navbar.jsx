@@ -3,10 +3,12 @@ import { useState } from "react";
 import Login from "./Login";
 import Logout from "./Logout";
 import { useAuth } from "../context/AuthProvider";
+import { useCart } from "../context/CartProvider";
 import { Link } from "react-router-dom";
 
 function Navbar() {
   const [authUser, setAuthUser] = useAuth();
+  const { cart } = useCart();
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
@@ -48,6 +50,10 @@ function Navbar() {
     </li>
 
     <li>
+      <Link to="/training">Training</Link>
+    </li>
+
+    <li>
       <Link to="/contact">Contact</Link>
     </li>
 
@@ -55,7 +61,12 @@ function Navbar() {
       <a>About</a>
     </li>
         <li>
-      <a>Cart</a>
+      <Link to="/cart" className="flex items-center gap-1">
+        Cart
+        {cart.length > 0 && (
+          <span className="badge badge-secondary badge-sm">{cart.length}</span>
+        )}
+      </Link>
     </li>
     </>
   );

@@ -71,7 +71,7 @@ Download and explore free programming books covering Java, Python, Web Developme
         <div>
           <Slider {...settings}>
             {book.map((item) => (
-              <Cards item={item} key={item.id} />
+              <Cards item={item} key={item._id} />
             ))}
           </Slider>
         </div>

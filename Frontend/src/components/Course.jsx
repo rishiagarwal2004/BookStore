@@ -35,7 +35,7 @@ function Course() {
         </div>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-4">
           {book.map((item) => (
-            <Cards key={item.id} item={item} />
+            <Cards key={item._id} item={item} />
           ))}
         </div>
       </div>
