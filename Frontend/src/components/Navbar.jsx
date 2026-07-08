@@ -57,9 +57,9 @@ function Navbar() {
       <Link to="/contact">Contact</Link>
     </li>
 
-    <li>
-      <a>About</a>
-    </li>
+      <li>
+      <Link to="/about">About</Link>
+     </li>
         <li>
       <Link to="/cart" className="flex items-center gap-1">
         Cart

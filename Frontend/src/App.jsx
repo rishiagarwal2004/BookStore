@@ -1,5 +1,6 @@
 import React from "react";
 import Home from "./home/Home";
+import About from "./components/About";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Courses from "./courses/Courses";
 import Signup from "./components/Signup";
@@ -23,6 +24,7 @@ function App() {
           />
           <Route path="/signup" element={<Signup />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
           <Route
             path="/cart"
             element={authUser ? <Cart /> : <Navigate to="/signup" />}
