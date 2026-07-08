@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import banner from "../../public/Banner.png";
+import banner from "/Banner.png";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthProvider";
 import toast from "react-hot-toast";
