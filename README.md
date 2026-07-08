@@ -87,8 +87,6 @@ EMAIL_USER=your-gmail-address@gmail.com
 EMAIL_PASS=your-gmail-app-password
 ```
 
-> ⚠️ **Security note:** The `.env` committed in this repo contains **live-looking database and email credentials**. Never commit real secrets to a public repo. Rotate the MongoDB password and Gmail app password immediately, add `.env` to `.gitignore`, and use placeholder values in version control (e.g. an `.env.example` file).
-
 (Optional) seed the database with sample courses:
 
 ```bash
