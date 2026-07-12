@@ -24,10 +24,10 @@ function Signup() {
   }
 
   try {
-    const res = await axios.post(
-      "http://localhost:4001/user/send-otp",
-      { email }
-    );
+const res = await axios.post(
+  `${import.meta.env.VITE_API_URL}/user/send-otp`,
+  { email }
+);
 
     toast.success(res.data.message);
     setOtpSent(true);
@@ -47,7 +47,7 @@ function Signup() {
       otp:data.otp
     };
     await axios
-      .post("http://localhost:4001/user/signup", userInfo)
+      .post(`${import.meta.env.VITE_API_URL}/user/signup`, userInfo)
       .then((res) => {
         console.log(res.data);
         if (res.data) {
