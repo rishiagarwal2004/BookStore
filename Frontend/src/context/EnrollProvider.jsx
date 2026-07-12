@@ -4,7 +4,8 @@ import { useAuth } from "./AuthProvider";
 
 export const EnrollContext = createContext();
 
-const API = "http://localhost:4001";
+// ✅ Production API URL
+const API = import.meta.env.VITE_API_URL;
 
 export default function EnrollProvider({ children }) {
   const [authUser] = useAuth();
@@ -18,12 +19,13 @@ export default function EnrollProvider({ children }) {
       setEnrolledCourses([]);
       return;
     }
+
     try {
       setLoading(true);
       const res = await axios.get(`${API}/enrollment/${userId}`);
       setEnrolledCourses(res.data);
     } catch (error) {
-      console.log("Error fetching enrollments: ", error);
+      console.log("Error fetching enrollments:", error);
     } finally {
       setLoading(false);
     }
@@ -34,29 +36,38 @@ export default function EnrollProvider({ children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
-  // Checks out everything currently in the user's cart (server-side) and
-  // moves it into their enrollments. Returns the updated enrollment list.
   const checkout = async () => {
     if (!userId) return [];
-    const res = await axios.post(`${API}/enrollment/checkout`, { userId });
+
+    const res = await axios.post(`${API}/enrollment/checkout`, {
+      userId,
+    });
+
     setEnrolledCourses(res.data.enrollments);
     return res.data.enrollments;
   };
 
   const updateProgress = async (courseId, progress) => {
     if (!userId) return;
+
     try {
-      await axios.patch(`${API}/enrollment/${userId}/${courseId}`, { progress });
+      await axios.patch(`${API}/enrollment/${userId}/${courseId}`, {
+        progress,
+      });
+
       setEnrolledCourses((prev) =>
-        prev.map((c) => (c._id === courseId ? { ...c, progress } : c))
+        prev.map((c) =>
+          c._id === courseId ? { ...c, progress } : c
+        )
       );
     } catch (error) {
-      console.log("Error updating progress: ", error);
+      console.log("Error updating progress:", error);
       throw error;
     }
   };
 
-  const isEnrolled = (id) => enrolledCourses.some((c) => c._id === id);
+  const isEnrolled = (id) =>
+    enrolledCourses.some((c) => c._id === id);
 
   return (
     <EnrollContext.Provider
