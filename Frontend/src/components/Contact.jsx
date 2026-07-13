@@ -11,22 +11,22 @@ function Contact() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    try {
-      const res = await axios.post(
-        "http://localhost:4001/contact",
-        data
-      );
+const onSubmit = async (data) => {
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_API_URL}/contact`,
+      data
+    );
 
-      if (res.status === 201) {
-        toast.success("Message Sent Successfully!");
-        reset();
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong");
+    if (res.status === 201) {
+      toast.success("Message Sent Successfully!");
+      reset();
     }
-  };
+  } catch (error) {
+    console.log(error);
+    toast.error("Something went wrong");
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-16 bg-gradient-to-br from-slate-900 via-[#111827] to-slate-900">
