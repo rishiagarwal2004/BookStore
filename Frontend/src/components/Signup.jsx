@@ -15,6 +15,7 @@ function Signup() {
     formState: { errors },
   } = useForm();
   const [otpSent, setOtpSent] = useState(false);
+  const [sendingOtp, setSendingOtp] = useState(false);
   const sendOtp = async () => {
   const email = document.getElementById("email").value;
 
@@ -23,19 +24,24 @@ function Signup() {
     return;
   }
 
+  // OTP field turant show ho jayegi
+  setOtpSent(true);
+  setSendingOtp(true);
+
   try {
-const res = await axios.post(
-  `${import.meta.env.VITE_API_URL}/user/send-otp`,
-  { email }
-);
+    const res = await axios.post(
+      `${import.meta.env.VITE_API_URL}/user/send-otp`,
+      { email }
+    );
 
     toast.success(res.data.message);
-    setOtpSent(true);
-
   } catch (err) {
+    // Agar request fail ho jaye to OTP field hide kar do
+    setOtpSent(false);
 
     toast.error(err.response?.data?.message || "Failed");
-
+  } finally {
+    setSendingOtp(false);
   }
 };
 
@@ -107,13 +113,18 @@ const res = await axios.post(
     {...register("email", { required: true })}
   />
 
-  <button
-    type="button"
-    onClick={sendOtp}
-    className="bg-blue-500 text-white px-3 rounded"
-  >
-    Send OTP
-  </button>
+<button
+  type="button"
+  onClick={sendOtp}
+  disabled={sendingOtp}
+  className={`px-3 rounded text-white ${
+    sendingOtp
+      ? "bg-gray-400 cursor-not-allowed"
+      : "bg-blue-500 hover:bg-blue-700"
+  }`}
+>
+  {sendingOtp ? "Sending..." : "Send OTP"}
+</button>
 </div>
                 <br />
                 {errors.email && (
