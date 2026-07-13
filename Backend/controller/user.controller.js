@@ -149,11 +149,11 @@ export const login = async (req, res) => {
       },
     });
 
-  } catch (error) {
-    console.log(error);
+} catch (error) {
+  console.error(error);
 
-    res.status(500).json({
-      message: "Internal Server Error",
-    });
-  }
+  res.status(500).json({
+    message: error.message,
+  });
+}
 };
