@@ -46,7 +46,7 @@ const onSubmit = async (data) => {
 
           <div className="space-y-4 text-lg">
             <p>📧www.rishiagarwalmathmatician@gmail.com</p>
-            <p>📞 +91 98765 43210</p>
+            <p>📞 +91 63928 19336</p>
             <p>📍 Lucknow, Uttar Pradesh, India</p>
           </div>
         </div>
