@@ -1,7 +1,7 @@
 import User from "../model/user.model.js";
 import Otp from "../model/otp.model.js";
 import bcryptjs from "bcryptjs";
-import transporter from "../config/mailer.js";
+import resend from "../config/resend.js";
 
 
 export const sendOtp = async (req, res) => {
@@ -26,17 +26,17 @@ export const sendOtp = async (req, res) => {
       expiresAt: new Date(Date.now() + 5 * 60 * 1000),
     });
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: "BookStore Email Verification",
-      html: `
-        <h2>BookStore Email Verification</h2>
-        <p>Your OTP is:</p>
-        <h1>${otp}</h1>
-        <p>This OTP is valid for 5 minutes.</p>
-      `,
-    });
+await resend.emails.send({
+  from: "BookStore <onboarding@resend.dev>",
+  to: email,
+  subject: "BookStore Email Verification",
+  html: `
+    <h2>BookStore Email Verification</h2>
+    <p>Your OTP is:</p>
+    <h1 style="font-size:32px;color:#2563eb;">${otp}</h1>
+    <p>This OTP is valid for 5 minutes.</p>
+  `,
+});
 
     res.status(200).json({
       message: "OTP Sent Successfully",
